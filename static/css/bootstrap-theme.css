@@ -1,0 +1,60 @@
+/*!
+ * Bootstrap v3.0.2 by @fat and @mdo
+ * Copyright 2013 Twitter, Inc.
+ * Licensed under http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world by @mdo and @fat.
+ */
+
+a {
+    -webkit-transition: color .1s linear;
+    -moz-transition: color .1s linear;
+    -ms-transition: color .1s linear;
+    -o-transition: color .1s linear;
+    transition: color .1s linear;
+}
+
+
+/* custom */
+html, body {background:#efeff4;}
+body {padding-bottom:40px;}
+
+header {font-weight:lighter; padding-top:15px; padding-bottom:20px;}
+header h1 {width:200px; margin:0;}
+header h1, header .search {display:inline-block;}
+header .h1 {font-size:36px;}
+header .h1:hover {text-decoration:none;}
+header .search {width:300px; float:right; margin-top:5px;}
+
+.breadcrumb {margin:0 -15px; border-radius:4px 4px 0 0; background:#7476cf; padding: 18px 0; text-align:center; color:#fff;}
+.breadcrumb .searchPattern {display:inline-block; padding:0 5px; margin:0 5px; background:#fefefe; color:#333;}
+.breadcrumb a {color:#fff; font-weight:bold;}
+.breadcrumb > li + li::before {color:#222;}
+
+#Gan-folder {
+    border-radius:0 0 4px 4px;
+    -webkit-box-shadow: 0 1px 0 0 rgba(221,221,221,.7);
+    box-shadow: 0 1px 0 0 rgba(221,221,221,.7);
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #ffffff 0%, #f8f8fc 99%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(99%,#f8f8fc));
+    background: -webkit-linear-gradient(top, #ffffff 0%,#f8f8fc 99%);
+    background: -o-linear-gradient(top, #ffffff 0%,#f8f8fc 99%);
+    background: -ms-linear-gradient(top, #ffffff 0%,#f8f8fc 99%);
+    background: linear-gradient(to bottom, #ffffff 0%,#f8f8fc 99%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f8f8fc',GradientType=0 );
+    padding-bottom:20px;
+}
+
+#Gan-folder .page-header {padding-left:15px; margin-top:20px;}
+#Gan-folder .depict {margin-top:35px; border-radius:4px; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.2);}
+#Gan-folder .glyphicon-muted {color:#999;}
+
+#search {margin:0; padding:0;}
+#search li {list-style:none; height:80px; border-bottom:1px solid #d8d8d8; line-height:40px;}
+#search li .name, #search li .parent {display:inline-block;}
+#search li .name {width:800px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden;}
+#search li .name .real {font-size:16px; font-weight:bold; color:#000;}
+#search li .parent {float:right; margin-top:20px;}
+#search .ending {border:none; text-align:center; line-height:80px;}
+#noresult {font-size:30px; color:#666; text-align:center; padding:140px 0;}

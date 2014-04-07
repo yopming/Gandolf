@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+
+{% block content %}
+{% if folder.chunks %}
+<ul class="breadcrumb">
+    <li>
+        <a href="/">根目录</a>
+    </li>
+    {% for chunk in folder.chunks() %}
+    <li>
+        <a href="/files/{{ chunk.path }}">{{ chunk.chunk }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="alert alert-info">臣妾读不出来那种文件啊</div>
+{% endblock %}

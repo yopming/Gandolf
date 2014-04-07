@@ -1,0 +1,156 @@
+{% extends "index.html" %}
+
+{% block content %}
+{% if folder.chunks %}
+<ul class="breadcrumb">
+    <li>
+        <a href="/">根目录</a>
+    </li>
+    {% for chunk in folder.chunks() %}
+    <li>
+        <a href="/files/{{ chunk.path }}">{{ chunk.chunk }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="row" id="Gan-folder">
+    <div class="col-md-7">
+        <!--
+        <h3 class="page-header">目录</h3>
+
+        <form action="new_directory" class="navbar-form" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" name="new_directory_name">
+            </div>
+            <input type="submit" class="btn btn-default" value="新建目录">
+            <input type="hidden" value="{{folder.path}}" name="directory_root">
+        </form> 
+        -->
+
+        <table cellspacing="0" cellpadding="0" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>类型</th>
+                    <th>名称</th>
+                    <!--
+                    <th>大小</th>
+                    <th>修改时间</th>
+                    -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for folder in folder.folders %}
+                <tr>
+                    <td><span class="glyphicon glyphicon-folder-open glyphicon-muted"></span></td>
+                    <td><a href="/files/{{ folder.path }}">{{ folder.name }}</a></td>
+                    <!--
+                    <td></td>
+                    <td></td>
+                    -->
+                </tr>
+                {% endfor %}
+                {% for file in folder.files %}
+                {% if file.name != '.DS_Store' %}
+                {% if file.name|lower != 'readme.txt' %}
+                {% if file.name|lower != 'thumbs.db' %}
+                <tr>
+                    <td>
+                        <span class="label 
+                            {% if file.trim_ext|lower == 'png' %}
+                            label-primary
+                            {% elif file.trim_ext|lower == 'jpg' %}
+                            label-info
+                            {% elif file.trim_ext|lower == 'gif' %}
+                            label-success
+                            {% elif file.trim_ext|lower == 'psd' %}
+                            label-danger
+                            {% else %}
+                            label-default
+                            {% endif %}
+                            ">{{ file.trim_ext }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if file.ancestry_directory and file.trim_ext|lower in ['png', 'jpg', 'gif', 'jpeg', 'webp'] %}
+                        <a href="javascript:void(0)" data-href="{{ request.host }}/fast/{{ file.rela_path }}" data-real="{{ cdn_root }}{{ file.rela_path }}" class="dev_toggle_modal">
+                        {% else %}
+                        <a href="{{ cdn_root }}{{ file.rela_path }}" target="_blank">
+                        {% endif %}
+                            <span style="display:none;">{{ file.ancestry_directory }}</span>
+                            <span class="dev_toggle_modal_name">{{ file.name }}</span>
+                        </a>
+                    </td>
+                    <!--
+                    <td>{{ file.size }}</td>
+                    <td>{{ file.mtime }}</td>
+                    -->
+                </tr>
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <!--
+        <ul class="nav nav-tabs nav-stacked">
+            {% for folder in folder.folders %}
+            <li>
+                <a href="/files/{{ folder.path }}">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                    &nbsp;
+                    {{ folder.name }}
+                </a>
+            </li>
+            {% endfor %}
+            {% for file in folder.files %}
+            {% if file.name != '.DS_Store' %}
+            {% if file.name|lower != 'readme.txt' %}
+            {% if file.name|lower != 'thumbs.db' %}
+            <li>
+                {% if file.ancestry_directory %}
+                <a href="javascript:void(0)" data-href="{{ request.host }}/fast/{{ file.rela_path }}" data-real="{{ cdn_root }}{{ file.rela_path }}" class="dev_toggle_modal">
+                {% else %}
+                <a href="{{ cdn_root }}{{ file.rela_path }}" target="_blank">
+                {% endif %}
+                    <span class="label label-info">{{ file.trim_ext }}</span>
+
+                    <span class="dev_toggle_modal_name">{{ file.name }}</span>
+                    ({{ file.size }})
+                    ({{ file.mtime }})
+                </a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </ul>
+        -->
+    </div>
+
+    <div class="col-md-5">
+        {% if folder.depict %}
+        <div class="well well-lg depict MD">
+            {{ decode_markdown(folder.depict)|safe }}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- modal -->
+<div class="modal fade" id="QRModal" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" arial-hidden="true">&times;</button>
+                <h4 class="modal-title dev_modal_title">&nbsp;</h4>
+            </div>
+            <div class="modal-body">
+                <div id="DEV_QRCODE"></div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-success dev_modal_reallink" target="_blank">PC端查看</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

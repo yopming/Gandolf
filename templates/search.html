@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="breadcrumb">
+    为<span class="searchPattern">{{ pattern }}</span>而奋不顾身地搜索:
+</div>
+    <div class="row">
+        <div class="span6">
+            {% if result %}
+            <ul id="search">
+                {% for re in result %}
+                <li>
+                    <span class="name">
+                        <div class="real">{{ re[0] }}</div>
+                        <div class="path text-muted">
+                            {{ re[1] }}
+                        </div>
+                    </span>
+                    <span class="parent">
+                        {% if not re[1] %}
+                        <a target="_blnak" href="/" class="btn btn-default">
+                        {% else %}
+                        <a target="_blank" href="/files/{{ re[1] }}" class="btn btn-default">
+                        {% endif %}
+                            <span class="glyphicon glyphicon-share"></span>
+                            打开上层目录
+                        </a>
+                    </span>
+                </li>
+                {% endfor %}
+                <li class="ending">
+                    <a href="/">木有了～～回去吧</a>
+                </li>
+            </ul>
+            {% else %}
+            <div id="noresult">
+                <span class="glyphicon glyphicon-fire"></span>
+                木有结果哎，再来一把啵
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+{% endblock %}
