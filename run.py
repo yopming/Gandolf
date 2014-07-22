@@ -1,4 +1,5 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+
 import os
 from flask import render_template, request
 from filesystem import Folder, File
@@ -6,6 +7,7 @@ from action import Find
 from app import create_app
 
 app = create_app()
+
 
 @app.route('/')
 @app.route('/files/<path:path>')
@@ -28,6 +30,7 @@ def index(path=''):
         folder = Folder(app.config['FILES_ROOT'], my_file.get_path())
         return render_template('file_view.html', file=my_file, folder=folder)
 
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     pattern = request.form['pattern']
@@ -39,17 +42,6 @@ def search():
         pattern=pattern
     )
 
-# @app.route('/new_directory', methods=["POST"])
-# @app.route('/<path:path>/new_directory', methods=["POST"])
-# def create_directory(path = "/"):
-    # dirname = request.form["new_directory_name"]
-    # directory_root = request.form["directory_root"]
-    # full_path = os.path.join(directory_root, dirname)
-    # try:
-        # os.mkdir(full_path)
-    # except error:
-        # pass
-    # return redirect('/files/' + directory_root)
 
 @app.route('/fast/<path:pix>')
 def fast(pix):
@@ -57,7 +49,8 @@ def fast(pix):
     return render_template(
         'touch_layout.html',
         img_src=img_src
-        )
+    )
+
 
 @app.route('/warning')
 def warning():
