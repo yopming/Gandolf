@@ -30,7 +30,6 @@ class Node(object):
         action = action_class(self)
         return action.apply()
 
-
 class File(Node):
     avaliable_actions = [View, ]
     def __unicode__(self):

@@ -1,8 +1,7 @@
 ﻿# -*- coding: utf-8 -*-
-import os
 from flask import render_template, request
 from filesystem import Folder, File
-from action import Find
+from action import *
 from app import create_app
 
 app = create_app()
@@ -20,7 +19,7 @@ def index(path=''):
             folder=folder,
             cdn_root=app.config['CDN_ROOT'],
             request=request
-        )
+            )
 
     else:
         # If the mouse click the file
@@ -28,16 +27,10 @@ def index(path=''):
         folder = Folder(app.config['FILES_ROOT'], my_file.get_path())
         return render_template('file_view.html', file=my_file, folder=folder)
 
-@app.route('/search', methods=['GET', 'POST'])
-def search():
-    pattern = request.form['pattern']
-    find = Find(app.config['FILES_ROOT'])
-    result = find.find(pattern)
-    return render_template(
-        'search.html',
-        result=result,
-        pattern=pattern
-    )
+# @app.route('/search', methods=['POST'])
+# def search():
+    # q = request.form['q']
+    # return render_template('search.html', request = q)
 
 # @app.route('/new_directory', methods=["POST"])
 # @app.route('/<path:path>/new_directory', methods=["POST"])
@@ -64,4 +57,4 @@ def warning():
     return render_template('warning.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')

@@ -32,6 +32,7 @@
                 <tr>
                     <th>类型</th>
                     <th>名称</th>
+                    <th>短链接</th>
                     <!--
                     <th>大小</th>
                     <th>修改时间</th>
@@ -42,7 +43,14 @@
                 {% for folder in folder.folders %}
                 <tr>
                     <td><span class="glyphicon glyphicon-folder-open glyphicon-muted"></span></td>
-                    <td><a href="/files/{{ folder.path }}">{{ folder.name }}</a></td>
+                    <td class="involve">
+                        <a href="/files/{{ folder.path }}" data-spice="folder">{{ folder.name }}</a>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default btn-xs dev_gen_link">
+                            短链接
+                        </button>
+                    </td>
                     <!--
                     <td></td>
                     <td></td>
@@ -70,15 +78,15 @@
                             ">{{ file.trim_ext }}
                         </span>
                     </td>
-                    <td>
-                        {% if file.ancestry_directory and file.trim_ext|lower in ['png', 'jpg', 'gif', 'jpeg', 'webp'] %}
-                        <a href="javascript:void(0)" data-href="{{ request.host }}/fast/{{ file.rela_path }}" data-real="{{ cdn_root }}{{ file.rela_path }}" class="dev_toggle_modal">
-                        {% else %}
-                        <a href="{{ cdn_root }}{{ file.rela_path }}" target="_blank">
-                        {% endif %}
-                            <span style="display:none;">{{ file.ancestry_directory }}</span>
-                            <span class="dev_toggle_modal_name">{{ file.name }}</span>
+                    <td class="involve">
+                        <a href="{{ cdn_root }}{{ file.rela_path }}" target="_blank" data-spice="file">
+                            {{ file.name }}
                         </a>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default btn-xs dev_gen_link">
+                            短链接
+                        </button>
                     </td>
                     <!--
                     <td>{{ file.size }}</td>
@@ -136,21 +144,21 @@
     </div>
 </div>
 
-<!-- modal -->
-<div class="modal fade" id="QRModal" role="dialog" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" arial-hidden="true">&times;</button>
-                <h4 class="modal-title dev_modal_title">&nbsp;</h4>
-            </div>
-            <div class="modal-body">
-                <div id="DEV_QRCODE"></div>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-success dev_modal_reallink" target="_blank">PC端查看</a>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="modal fade" id="DEV-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">短链接</h4>
+      </div>
+      <div class="modal-body">
+        <p class="dev_gened_link"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 {% endblock %}

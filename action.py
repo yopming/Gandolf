@@ -39,9 +39,9 @@ class Find(Action):
         result = []
         node_root = app.config['CDN_ROOT']
         for root, dirs, files in os.walk(app.config['FILES_ROOT']):
-            _file_path = os.path.join(root).split(app.config['FILES_ROOT'])[1]
             for name in files:
                 if pattern in name:
+                    _file_path = os.path.join(root).split(app.config['FILES_ROOT'])[1]
                     file_path = _file_path[1:]
                     result.append([name, file_path, node_root])
         return result
